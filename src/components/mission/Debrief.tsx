@@ -26,7 +26,7 @@ function SignalRow({
       <div className="flex items-baseline justify-between gap-4 md:block">
         <p className="text-[0.9rem] text-ivory">{label}</p>
         <p className="font-display text-[0.9rem] tabular-nums text-muted-ink md:mt-1">
-          {signal.value}
+          {signal.value} <span className="text-muted-ink/60">/ 100</span>
         </p>
       </div>
       <div>

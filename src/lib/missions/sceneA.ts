@@ -74,7 +74,12 @@ export type MissionAResult = {
   elapsed: number;
   flags: Flag[];
   detection: number;
-  calibration: number;
+  /** Null when the person never actively chose a confidence level. */
+  calibration: number | null;
+  /** Flags left at the default confidence, never actively chosen. */
+  defaulted: number;
+  /** Flags where a confidence level was actively chosen. */
+  stated: number;
   restraint: number;
 };
 
@@ -89,7 +94,6 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
   });
 
   const truthOf = (id: string) => byId.get(id)?.truth ?? "clean";
-  const conf = (f: Flag): Confidence => f.confidence ?? "uncertain";
 
   const detectedIds = clean.filter((f) => truthOf(f.id) === "damaged").map((f) => f.id);
   const missed = STRUCTURES.filter((s) => s.truth === "damaged" && !detectedIds.includes(s.id)).map(
@@ -98,21 +102,32 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
   const falsePositives = clean.filter((f) => truthOf(f.id) === "clean").map((f) => f.id);
 
   const ambiguousFlags = clean.filter((f) => truthOf(f.id) === "ambiguous");
-  const ambiguousHandled = ambiguousFlags.filter((f) => conf(f) === "uncertain").length;
-  const ambiguousOverconfident = ambiguousFlags.filter((f) => conf(f) === "certain").length;
+  const ambiguousHandled = ambiguousFlags.filter((f) => f.confidence === "uncertain").length;
+  const ambiguousOverconfident = ambiguousFlags.filter((f) => f.confidence === "certain").length;
   const confidentWrong = clean.filter(
-    (f) => conf(f) === "certain" && truthOf(f.id) !== "damaged",
+    (f) => f.confidence === "certain" && truthOf(f.id) !== "damaged",
   ).length;
 
-  let points = 0;
-  for (const f of clean) {
-    const t = truthOf(f.id);
-    const c = conf(f);
-    if (t === "damaged") points += c === "certain" ? 2 : c === "likely" ? 1.5 : 1;
-    else if (t === "ambiguous") points += c === "uncertain" ? 2 : c === "likely" ? 1 : -1;
-    else points += c === "certain" ? -2 : c === "likely" ? -1 : -0.25;
-  }
-  const maxPoints = TRUE_DAMAGE_COUNT * 2 + AMBIGUOUS_COUNT * 2;
+  // Calibration measures the quality of the confidence levels the person
+  // actually chose, on the flags they actually made. It is not a coverage
+  // measure — missing a structure costs detection, never calibration — and a
+  // flag left at the default confidence is not scored at all, because no
+  // judgement of confidence was expressed.
+  const stated = clean.filter((f) => f.confidence !== null);
+  const defaulted = clean.length - stated.length;
+  const creditFor = (t: Truth, c: Confidence) => {
+    if (t === "damaged") return c === "certain" ? 1 : c === "likely" ? 0.8 : 0.55;
+    if (t === "ambiguous") return c === "uncertain" ? 1 : c === "likely" ? 0.75 : 0;
+    return c === "uncertain" ? 0.45 : c === "likely" ? 0.15 : 0;
+  };
+  const calibration =
+    stated.length === 0
+      ? null
+      : clamp(
+          (stated.reduce((sum, f) => sum + creditFor(truthOf(f.id), f.confidence!), 0) /
+            stated.length) *
+            100,
+        );
 
   return {
     detected: detectedIds.length,
@@ -124,7 +139,9 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
     elapsed,
     flags: clean,
     detection: clamp((detectedIds.length / TRUE_DAMAGE_COUNT) * 100),
-    calibration: clamp((points / maxPoints) * 100),
+    calibration,
+    defaulted,
+    stated: stated.length,
     restraint: clamp(100 - falsePositives.length * 22),
   };
 }
@@ -176,20 +193,35 @@ export function debriefMissionA(r: MissionAResult): MissionDebrief {
     );
   }
 
+  const calibrationNote = (() => {
+    if (r.calibration === null) {
+      return `You did not set a confidence level on ${r.flags.length === 1 ? "your flag" : "any of your flags"}, so there is nothing here to read. This is recorded as not observed rather than scored against you.`;
+    }
+    if (r.calibration < 40) {
+      return "Your stated confidence did not match what the frame supported: certainty where the evidence was thin, or thin evidence called firmly.";
+    }
+    if (r.calibration < 75) {
+      return "Partly matched. Some calls carried the right amount of doubt and some ran ahead of the evidence.";
+    }
+    return "Your stated confidence matched what the ground truth supported.";
+  })();
+
+  if (r.defaulted > 0) {
+    paragraphs.push(
+      r.stated === 0
+        ? `You left the confidence level unset on every flag, so nothing was recorded about how sure you were. Calibration is shown as not observed rather than scored low — an unset control is a missing reading, not a wrong answer.`
+        : `${r.defaulted} of your ${r.flags.length} flags were left at the default confidence. Those are excluded from the calibration reading, which is based only on the ${r.stated} ${r.stated === 1 ? "call" : "calls"} where you actively chose a level.`,
+    );
+  }
+
   const signals: SignalSet = {
     visual: {
       value: r.detection,
       note: `You identified ${r.detected} of ${TRUE_DAMAGE_COUNT} genuine damage indicators in a low-contrast synthetic frame.`,
     },
-    calibration: {
-      value: r.calibration,
-      note:
-        r.ambiguousOverconfident > 0
-          ? "Your confidence ran ahead of your evidence on the ambiguous structures."
-          : r.confidentWrong > 0
-            ? "Mostly well matched, with a small number of certain calls that the ground truth did not support."
-            : "Your stated confidence matched what the ground truth supported.",
-    },
+    ...(r.calibration === null
+      ? {}
+      : { calibration: { value: r.calibration, note: calibrationNote } }),
     speed: {
       value: speedSignal(r.flags.length, r.elapsed),
       note: `You made ${r.flags.length} ${r.flags.length === 1 ? "judgement" : "judgements"} in ${Math.round(r.elapsed)} seconds without the option to defer.`,
@@ -209,9 +241,12 @@ export function debriefMissionA(r: MissionAResult): MissionDebrief {
       },
       {
         label: "Calibration",
-        value: `${r.calibration}`,
-        detail: "Whether your certainty matched the evidence. The measure that matters most here.",
-        tone: r.calibration >= 60 ? "verified" : "signal",
+        value: r.calibration === null ? "Not set" : `${r.calibration} / 100`,
+        detail:
+          r.calibration === null
+            ? "No confidence level was chosen, so there is nothing to read here."
+            : "How well your certainty matched the evidence, across the calls where you chose a level.",
+        tone: r.calibration === null ? "neutral" : r.calibration >= 60 ? "verified" : "signal",
       },
       {
         label: "Restraint",
