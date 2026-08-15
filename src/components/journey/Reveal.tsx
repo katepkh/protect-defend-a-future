@@ -11,7 +11,7 @@ export function Reveal({
   className?: string;
   as?: "div" | "section" | "li" | "header";
 }) {
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -32,15 +32,16 @@ export function Reveal({
     return () => io.disconnect();
   }, []);
 
+  const Component = Tag as "div";
+
   return (
-    // @ts-expect-error dynamic tag ref typing
-    <Tag
+    <Component
       ref={ref}
       data-visible={visible}
       className={`az-reveal ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
-    </Tag>
+    </Component>
   );
 }
