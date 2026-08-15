@@ -116,7 +116,7 @@ function ActPage() {
       <div aria-hidden className="absolute inset-0 opacity-40">
         <Graticule />
       </div>
-      <div className="relative mx-auto max-w-[1400px]">
+      <div className="relative mx-auto max-w-[1100px]">
         <Reveal>
           <p className="az-eyebrow">STEP 07 · YOUR NEXT STEP</p>
           <h1 className="az-h2 mt-5 max-w-[20ch] text-ivory">
