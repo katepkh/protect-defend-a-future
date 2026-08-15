@@ -151,7 +151,12 @@ export function MissionC({
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <ul className="space-y-3">
+        <div>
+          <p className="mb-3 max-w-[62ch] text-[0.8rem] leading-relaxed text-muted-ink">
+            Sort each card by what it does to the claim. If a source turns out not to be independent
+            of another, mark it — spotting that is worth more here than the verdict itself.
+          </p>
+          <ul className="space-y-3">
           {EVIDENCE.map((e) => (
             <li key={e.id} className="border border-line bg-panel p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -164,13 +169,19 @@ export function MissionC({
                     setCircularFlags((p) => (p.includes(e.id) ? p.filter((x) => x !== e.id) : [...p, e.id]))
                   }
                   aria-pressed={circularFlags.includes(e.id)}
-                  className={`border px-3 py-1 text-[0.72rem] transition-colors ${
+                  className={`flex items-center gap-2 border px-3 py-1.5 text-[0.72rem] font-medium transition-colors ${
                     circularFlags.includes(e.id)
-                      ? "border-signal/60 text-signal"
-                      : "border-line text-muted-ink hover:border-ivory/40 hover:text-ivory"
+                      ? "border-signal bg-signal/15 text-signal"
+                      : "border-ivory/35 text-ivory/85 hover:border-ivory/70 hover:text-ivory"
                   }`}
                 >
-                  Not independent
+                  <span
+                    aria-hidden
+                    className={`inline-block h-2.5 w-2.5 border ${
+                      circularFlags.includes(e.id) ? "border-signal bg-signal" : "border-ivory/50"
+                    }`}
+                  />
+                  {circularFlags.includes(e.id) ? "Marked: not independent" : "Mark as not independent"}
                 </button>
               </div>
               <p className="mt-2 text-[0.95rem] text-ivory">{e.title}</p>
@@ -203,7 +214,8 @@ export function MissionC({
               </div>
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
 
         <aside className="space-y-4" aria-label="Verdict">
           <div className="border border-line bg-panel p-5">
