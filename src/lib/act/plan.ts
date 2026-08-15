@@ -44,14 +44,14 @@ export const WHAT_USUALLY_HAPPENS: Record<PathwayCategory, string> = {
 export const CONSENT: Record<PathwayCategory, { shared: string; with: string; purpose: string }> = {
   military: {
     shared:
-      "Only what you type into the official form on their site. PROTECT sends nothing at all: your answers, your mission result and your plan stay in this browser.",
+      "Only what you type into the official form on their site. TOPROTECT sends nothing at all: your answers, your mission result and your plan stay in this browser.",
     with: "Ukraine's official recruitment structures only.",
     purpose:
       "So the authorised body can run its own process. This consent covers military service alone and grants nothing to any private company, in this category or any other.",
   },
   "defence-tech": {
     shared:
-      "Only what you submit directly to the company's own channel. PROTECT transmits nothing on your behalf.",
+      "Only what you submit directly to the company's own channel. TOPROTECT transmits nothing on your behalf.",
     with: "The private defence-technology company you choose to contact.",
     purpose:
       "So a commercial employer can consider you under its own hiring rules. It covers this category only, and nothing from a military pathway is ever included.",
@@ -71,7 +71,7 @@ export const CONSENT: Record<PathwayCategory, { shared: string; with: string; pu
 };
 
 export const LEGAL_SELF_CHECK =
-  "Check the law of your own country of citizenship before you act. Serving in, or working for, a foreign armed force or defence industry can carry criminal liability, loss of citizenship, loss of security clearance, insurance invalidity or travel consequences, and the rules differ sharply between countries. PROTECT does not and cannot advise you on this, and nothing on this page is legal advice.";
+  "Check the law of your own country of citizenship before you act. Serving in, or working for, a foreign armed force or defence industry can carry criminal liability, loss of citizenship, loss of security clearance, insurance invalidity or travel consequences, and the rules differ sharply between countries. TOPROTECT does not and cannot advise you on this, and nothing on this page is legal advice.";
 
 export function buildPlanText(input: {
   pathway: Pathway;
@@ -79,7 +79,7 @@ export function buildPlanText(input: {
 }): string {
   const { pathway: p, sentence } = input;
   const lines = [
-    "PROTECT — your plan",
+    "TOPROTECT — your plan",
     "There is more than one way to defend a future.",
     "",
     `Pathway: ${p.title}`,

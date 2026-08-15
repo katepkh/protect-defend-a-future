@@ -17,9 +17,9 @@ import { useJourney } from "@/state/journey";
 export const Route = createFileRoute("/act")({
   head: () => ({
     meta: [
-      { title: "Act — PROTECT" },
+      { title: "Act — TOPROTECT" },
       { name: "description", content: "Save a plan for yourself, request a conversation with a human, or go directly to the official application." },
-      { property: "og:title", content: "Act — PROTECT" },
+      { property: "og:title", content: "Act — TOPROTECT" },
       { property: "og:description", content: "Save a plan for yourself, request a conversation with a human, or go directly to the official application." },
     ],
   }),
@@ -106,7 +106,7 @@ function ActPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "protect-plan.txt";
+    a.download = "toprotect-plan.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -273,7 +273,7 @@ function ActPage() {
                     <p className="mt-3 text-[0.9rem] leading-relaxed text-muted-ink">
                       In a real deployment, a named person at the organisation would contact you
                       through their own channel, on their own timetable, and would answer questions
-                      before any application existed. PROTECT would not sit in the middle of that
+                      before any application existed. TOPROTECT would not sit in the middle of that
                       conversation, and would not collect your contact details to arrange it — which
                       is why there is no form here.
                     </p>
@@ -302,10 +302,10 @@ function ActPage() {
           {leaving ? (
             <Section label="Before you go">
               <div className="border border-line bg-panel p-8 md:p-10">
-                <h2 className="az-h2 text-ivory">You are leaving PROTECT.</h2>
+                <h2 className="az-h2 text-ivory">You are leaving TOPROTECT.</h2>
                 <p className="mt-6 max-w-[62ch] text-[1rem] leading-[1.65] text-muted-ink">
                   Everything from here is handled by the organisation itself. They perform the
-                  verification, with a human. PROTECT has sent them nothing about you, and has no
+                  verification, with a human. TOPROTECT has sent them nothing about you, and has no
                   role in their decision.
                 </p>
 

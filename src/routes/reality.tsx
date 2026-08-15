@@ -13,9 +13,9 @@ export const Route = createFileRoute("/reality")({
   }),
   head: () => ({
     meta: [
-      { title: "Understand reality — PROTECT" },
+      { title: "Understand reality — TOPROTECT" },
       { name: "description", content: "Commitment, risk, language requirements, and legal constraints, stated plainly before you go any further." },
-      { property: "og:title", content: "Understand reality — PROTECT" },
+      { property: "og:title", content: "Understand reality — TOPROTECT" },
       { property: "og:description", content: "Commitment, risk, language requirements, and legal constraints, stated plainly before you go any further." },
     ],
   }),

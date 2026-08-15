@@ -76,7 +76,7 @@ export const SAMPLE_JOURNEY: JourneyState = {
   checkIn: null,
 };
 
-const KEY = "protect.journey.v1";
+const KEY = "toprotect.journey.v1";
 
 type Ctx = {
   journey: JourneyState;

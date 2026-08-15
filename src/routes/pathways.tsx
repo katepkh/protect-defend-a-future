@@ -18,9 +18,9 @@ import { useJourney } from "@/state/journey";
 export const Route = createFileRoute("/pathways")({
   head: () => ({
     meta: [
-      { title: "See your pathways — PROTECT" },
+      { title: "See your pathways — TOPROTECT" },
       { name: "description", content: "Three transparent options with honest trade-offs, each explained in plain language. Never a black-box verdict." },
-      { property: "og:title", content: "See your pathways — PROTECT" },
+      { property: "og:title", content: "See your pathways — TOPROTECT" },
       { property: "og:description", content: "Three transparent options with honest trade-offs, each explained in plain language. Never a black-box verdict." },
     ],
   }),

@@ -82,12 +82,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PROTECT" },
+      { title: "TOPROTECT" },
       {
         name: "description",
         content: "There is more than one way to defend a future.",
       },
-      { property: "og:title", content: "PROTECT" },
+      { property: "og:title", content: "TOPROTECT" },
       {
         property: "og:description",
         content: "There is more than one way to defend a future.",
