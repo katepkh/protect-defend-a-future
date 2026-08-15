@@ -2,7 +2,7 @@
 
 Build the foundation of a cinematic, serious web product called **AZIMUTH**.
 
-Tagline: **"There is more than one way to defend a future."**
+Tagline: **"There is more than one way to defend democracy."**
 
 ## What AZIMUTH is
 A trusted, experiential gateway for international supporters of Ukraine. Most people who want to help have no idea where their skills are actually useful, which organisations are legitimate, or what commitment and risk each pathway really involves. Existing sites start at a vacancy list or an application form. AZIMUTH starts earlier: it lets a person *try* a realistic, safe, synthetic task, then talks with them, then shows three transparent pathways with honest trade-offs, then hands them to the official process.
@@ -73,7 +73,7 @@ Short sentences. Generous empty space. Never a wall of text.
 **Hero (full viewport height):**
 - Background: the layered gradient + terrain-ridge SVG + graticule + grain system described above. Slow drift.
 - Eyebrow: `INTERNATIONAL CONTRIBUTION TO UKRAINE'S DEFENCE`
-- Headline: **There is more than one way to defend a future.**
+- Headline: **There is more than one way to defend democracy.**
 - Sub (max 58ch, `--muted`): "Thousands of people outside Ukraine want to help and do not know where they are actually useful. AZIMUTH lets you try the work, understand what it really costs, and find the pathway that genuinely fits you."
 - Primary button: **Find your direction** → `/direction`
 - Quiet secondary text link: "How this works" → smooth-scrolls to the process section
