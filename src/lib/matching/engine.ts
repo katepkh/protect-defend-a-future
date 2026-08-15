@@ -2,7 +2,13 @@ import { PATHWAYS } from "@/lib/pathways/data";
 import type { LanguageLevel, Pathway, PathwayCategory } from "@/lib/pathways/types";
 import { SIGNAL_LABELS, type SignalKey, type SignalSet } from "@/lib/missions/types";
 import { FREE_PREFIX, SKIPPED, answerLabel } from "@/lib/guide/script";
-import type { ExcludedPathway, MatchResult, RankedPathway, ScoreLine } from "./types";
+import type {
+  ExcludedPathway,
+  MatchResult,
+  PathwayRejection,
+  RankedPathway,
+  ScoreLine,
+} from "./types";
 import type { Direction } from "@/state/journey";
 
 /**
@@ -66,6 +72,8 @@ export type MatchInput = {
   signals: SignalSet;
   answers: Record<string, string>;
   direction: Direction;
+  /** Dimensions the person named when they said a pathway did not fit them. */
+  rejections?: PathwayRejection[];
 };
 
 const stated = (answers: Record<string, string>, id: string): string | null => {
@@ -214,14 +222,64 @@ function scorePathway(
   return { pathway: p, score, maxScore: MAX_SCORE, lines };
 }
 
-export function matchPathways({ signals, answers, direction }: MatchInput): MatchResult {
+function rejectionFilter(
+  p: Pathway,
+  rejections: PathwayRejection[],
+): { reason: string; fromAnswer: string } | null {
+  for (const r of rejections) {
+    const source = PATHWAYS.find((x) => x.id === r.pathwayId);
+    if (!source) continue;
+    const from = `You said "${source.title}" did not fit you.`;
+    if (p.id === source.id) {
+      return { reason: "You told us this one does not fit you, so it is not shown again.", fromAnswer: from };
+    }
+    if (r.dimension === "commitment" && p.commitmentMonths.min >= source.commitmentMonths.min) {
+      return {
+        reason: `You said the commitment was the problem, and this one asks for at least ${p.commitmentMonths.min} months as well.`,
+        fromAnswer: from,
+      };
+    }
+    if (r.dimension === "location" && source.relocationRequired && p.relocationRequired) {
+      return {
+        reason: "You said the location was the problem, and this pathway also requires relocating.",
+        fromAnswer: from,
+      };
+    }
+    if (
+      r.dimension === "language" &&
+      PATHWAY_LANGUAGE_RANK[p.languageRequirement.level] >=
+        PATHWAY_LANGUAGE_RANK[source.languageRequirement.level] &&
+      PATHWAY_LANGUAGE_RANK[source.languageRequirement.level] > 0
+    ) {
+      return {
+        reason: "You said the language requirement was the problem, and this one asks for as much or more.",
+        fromAnswer: from,
+      };
+    }
+    if (r.dimension === "risk" && RISK_RANK[p.riskBand] >= RISK_RANK[source.riskBand] && RISK_RANK[source.riskBand] > 0) {
+      return {
+        reason: `You said the risk was the problem, and this pathway ordinarily carries ${p.riskBand} physical risk too.`,
+        fromAnswer: from,
+      };
+    }
+    if (r.dimension === "work-type" && p.category === source.category) {
+      return {
+        reason: "You said the type of work was the problem, so the rest of that category is set aside too.",
+        fromAnswer: from,
+      };
+    }
+  }
+  return null;
+}
+
+export function matchPathways({ signals, answers, direction, rejections = [] }: MatchInput): MatchResult {
   const preferred = direction ? (DIRECTION_TO_CATEGORY[direction] ?? null) : null;
 
   const excluded: ExcludedPathway[] = [];
   const surviving: Pathway[] = [];
 
   for (const p of PATHWAYS) {
-    const fail = hardFilter(p, answers);
+    const fail = hardFilter(p, answers) ?? rejectionFilter(p, rejections);
     if (fail) excluded.push({ pathway: p, reason: fail.reason, fromAnswer: fail.fromAnswer });
     else surviving.push(p);
   }

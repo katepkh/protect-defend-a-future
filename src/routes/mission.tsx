@@ -25,13 +25,13 @@ export const Route = createFileRoute("/mission")({
   },
   head: () => ({
     meta: [
-      { title: "Try a mission — AZIMUTH" },
+      { title: "Try a mission — PROTECT" },
       {
         name: "description",
         content:
           "One short, entirely synthetic task. Not a test and not a game — a rehearsal that reads honest capability signals from how you actually work.",
       },
-      { property: "og:title", content: "Try a mission — AZIMUTH" },
+      { property: "og:title", content: "Try a mission — PROTECT" },
       {
         property: "og:description",
         content:

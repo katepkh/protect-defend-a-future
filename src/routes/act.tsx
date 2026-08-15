@@ -4,9 +4,9 @@ import { Placeholder } from "@/components/journey/Placeholder";
 export const Route = createFileRoute("/act")({
   head: () => ({
     meta: [
-      { title: "Act — AZIMUTH" },
+      { title: "Act — PROTECT" },
       { name: "description", content: "Save a plan for yourself, request a conversation with a human, or go directly to the official application." },
-      { property: "og:title", content: "Act — AZIMUTH" },
+      { property: "og:title", content: "Act — PROTECT" },
       { property: "og:description", content: "Save a plan for yourself, request a conversation with a human, or go directly to the official application." },
     ],
   }),

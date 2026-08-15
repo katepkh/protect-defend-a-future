@@ -4,13 +4,13 @@ import { Graticule } from "@/components/atmosphere/Graticule";
 export const Route = createFileRoute("/not-ready")({
   head: () => ({
     meta: [
-      { title: "Not right now — AZIMUTH" },
+      { title: "Not right now — PROTECT" },
       {
         name: "description",
         content:
           "Stopping is a legitimate answer. Nothing was saved from the conversation, and nothing follows you.",
       },
-      { property: "og:title", content: "Not right now — AZIMUTH" },
+      { property: "og:title", content: "Not right now — PROTECT" },
       {
         property: "og:description",
         content: "Stopping is a legitimate answer. Nothing was saved, and nothing follows you.",

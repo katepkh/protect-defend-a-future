@@ -6,13 +6,13 @@ import { STEPS } from "@/lib/steps";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AZIMUTH — There is more than one way to defend a future." },
+      { title: "PROTECT — There is more than one way to defend a future." },
       {
         name: "description",
         content:
           "Try the work, understand what it really costs, and find the pathway that genuinely fits you. A gateway for international supporters of Ukraine.",
       },
-      { property: "og:title", content: "AZIMUTH — There is more than one way to defend a future." },
+      { property: "og:title", content: "PROTECT — There is more than one way to defend a future." },
       {
         property: "og:description",
         content:
@@ -62,7 +62,7 @@ function Index() {
           <Reveal delay={240}>
             <p className="mt-8 max-w-[58ch] text-[1.0625rem] leading-[1.65] text-muted-ink">
               Thousands of people outside Ukraine want to help and do not know where they are
-              actually useful. AZIMUTH lets you try the work, understand what it really costs, and
+              actually useful. PROTECT lets you try the work, understand what it really costs, and
               find the pathway that genuinely fits you.
             </p>
           </Reveal>
