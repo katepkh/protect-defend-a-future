@@ -1,24 +1,195 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { HeroBackdrop } from "@/components/atmosphere/HeroBackdrop";
+import { Reveal } from "@/components/journey/Reveal";
+import { STEPS } from "@/lib/steps";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "AZIMUTH — There is more than one way to defend a future." },
+      {
+        name: "description",
+        content:
+          "Try the work, understand what it really costs, and find the pathway that genuinely fits you. A gateway for international supporters of Ukraine.",
+      },
+      { property: "og:title", content: "AZIMUTH — There is more than one way to defend a future." },
+      {
+        property: "og:description",
+        content:
+          "Try the work, understand what it really costs, and find the pathway that genuinely fits you.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const PROBLEM = [
+  {
+    h: "You want to help.",
+    p: "Engineers, medics, analysts, logisticians, translators, pilots, welders. The need is enormous and specific.",
+  },
+  {
+    h: "You cannot tell what is real.",
+    p: "Dozens of channels, unclear legitimacy, contradictory information, and no way to know which opportunities are verified.",
+  },
+  {
+    h: "So nothing happens.",
+    p: "Most people close the tab. Intent that never becomes action helps no one.",
+  },
+];
+
+const REFUSALS = [
+  "We will not tell you that serving is the right choice for you. That is yours to decide.",
+  "We will not hide the risk, the language requirements, or the legal consequences.",
+  "We will not perform background checks. Verification is done by the authorised organisation, by a human.",
+  "We will not pass your military application to a private company. Those pathways are kept separate.",
+];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main>
+      <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-6">
+        <HeroBackdrop />
+        <div className="relative mx-auto w-full max-w-[1400px] pb-28 pt-28">
+          <Reveal>
+            <p className="az-eyebrow">INTERNATIONAL CONTRIBUTION TO UKRAINE&rsquo;S DEFENCE</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <h1 className="az-hero mt-8 max-w-[16ch] text-ivory">
+              There is more than one way to defend a future.
+            </h1>
+          </Reveal>
+          <Reveal delay={240}>
+            <p className="mt-10 max-w-[58ch] text-[1.0625rem] leading-[1.65] text-muted-ink">
+              Thousands of people outside Ukraine want to help and do not know where they are
+              actually useful. AZIMUTH lets you try the work, understand what it really costs, and
+              find the pathway that genuinely fits you.
+            </p>
+          </Reveal>
+          <Reveal delay={360}>
+            <div className="mt-12 flex flex-wrap items-center gap-8">
+              <Link
+                to="/direction"
+                className="inline-flex items-center gap-4 bg-accent-blue px-8 py-4 text-sm font-semibold tracking-wide text-ivory transition-opacity duration-300 hover:opacity-90"
+              >
+                Find your direction <span aria-hidden>→</span>
+              </Link>
+              <a
+                href="#how-this-works"
+                className="text-sm text-muted-ink underline-offset-8 transition-colors duration-300 hover:text-ivory hover:underline"
+              >
+                How this works
+              </a>
+            </div>
+          </Reveal>
+        </div>
+        <div
+          aria-hidden
+          className="az-cue pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <svg width="16" height="34" viewBox="0 0 16 34" fill="none">
+            <path d="M8 0v26M2 20l6 7 6-7" stroke="hsl(var(--muted-ink))" strokeWidth="1" />
+          </svg>
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <p className="az-eyebrow">THE PROBLEM</p>
+          </Reveal>
+          <div className="mt-14 grid gap-px bg-line md:grid-cols-3">
+            {PROBLEM.map((item, i) => (
+              <Reveal key={item.h} delay={i * 100}>
+                <div className="h-full bg-ink pr-8 pt-8 md:p-10 md:pl-10">
+                  <h2 className="font-display text-2xl font-bold tracking-tight text-ivory">
+                    {item.h}
+                  </h2>
+                  <p className="mt-4 max-w-[38ch] text-[0.98rem] leading-relaxed text-muted-ink">
+                    {item.p}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="how-this-works" className="relative border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <p className="az-eyebrow">HOW THIS WORKS</p>
+            <h2 className="az-h2 mt-5 max-w-[18ch] text-ivory">Eight steps, in your own time.</h2>
+          </Reveal>
+          <ol className="relative mt-16 max-w-3xl border-l border-line">
+            {STEPS.map((step, i) => (
+              <Reveal as="li" key={step.path} delay={i * 60} className="relative block pb-12 pl-10">
+                <span
+                  aria-hidden
+                  className="absolute -left-[3px] top-2 h-1.5 w-1.5 rounded-full bg-accent-blue"
+                />
+                <div className="flex items-baseline gap-5">
+                  <span className="font-display text-xs font-semibold tracking-[0.22em] text-muted-ink">
+                    {step.n}
+                  </span>
+                  <h3 className="font-display text-xl font-bold tracking-tight text-ivory">
+                    {step.name}
+                  </h3>
+                </div>
+                <p className="mt-3 max-w-[54ch] text-[0.98rem] leading-relaxed text-muted-ink">
+                  {step.line}
+                </p>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="border-t border-line px-6 py-28">
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <div className="border border-signal/30 bg-panel p-10 md:p-14">
+              <p className="az-eyebrow" style={{ color: "hsl(var(--signal))" }}>
+                HONESTY
+              </p>
+              <h2 className="az-h2 mt-5 text-ivory">What we will not do.</h2>
+              <ul className="mt-10 space-y-6">
+                {REFUSALS.map((line) => (
+                  <li key={line} className="flex max-w-[68ch] gap-5">
+                    <span aria-hidden className="mt-3 h-px w-6 shrink-0 bg-signal/70" />
+                    <span className="text-[1.0625rem] leading-[1.65] text-ivory/90">{line}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden border-t border-line px-6 py-40 text-center">
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(50% 60% at 50% 100%, hsl(var(--accent-blue) / 0.18) 0%, transparent 70%)",
+          }}
+        />
+        <Reveal className="relative mx-auto max-w-3xl">
+          <h2 className="az-hero text-ivory">Start where you are.</h2>
+          <div className="mt-12">
+            <Link
+              to="/direction"
+              className="inline-flex items-center gap-4 bg-accent-blue px-8 py-4 text-sm font-semibold tracking-wide text-ivory transition-opacity duration-300 hover:opacity-90"
+            >
+              Find your direction <span aria-hidden>→</span>
+            </Link>
+          </div>
+          <p className="mx-auto mt-8 max-w-[46ch] text-sm leading-relaxed text-muted-ink">
+            Takes about six minutes. You can stop at any point, and nothing is submitted anywhere.
+          </p>
+        </Reveal>
+      </section>
+    </main>
   );
 }
