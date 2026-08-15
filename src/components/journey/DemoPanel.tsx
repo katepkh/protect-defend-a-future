@@ -4,6 +4,7 @@ import { ALL_ROUTES } from "@/lib/steps";
 import { useJourney } from "@/state/journey";
 import { MISSIONS, sampleDebrief } from "@/lib/missions";
 import type { MissionId } from "@/lib/missions/types";
+import { SAMPLE_GUIDE_ANSWERS } from "@/lib/guide/script";
 
 export function DemoPanel() {
   const [open, setOpen] = useState(false);
@@ -76,6 +77,29 @@ export function DemoPanel() {
         ))}
       </div>
       <div className="mt-3 space-y-1">
+        <p className="az-eyebrow mb-1">Guide</p>
+        <div className="grid grid-cols-2 gap-1">
+          <button
+            type="button"
+            onClick={() => void navigate({ to: "/guide", search: { demo: "1" as const } })}
+            className="border border-line px-2 py-1.5 text-[0.7rem] text-muted-ink transition-colors hover:border-accent-blue hover:text-ivory"
+          >
+            Start
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              update({ guideAnswers: SAMPLE_GUIDE_ANSWERS });
+              void navigate({
+                to: "/guide",
+                search: { sample: "1" as const, demo: "1" as const },
+              });
+            }}
+            className="border border-line px-2 py-1.5 text-[0.7rem] text-ivory transition-colors hover:border-accent-blue"
+          >
+            Fill sample answers
+          </button>
+        </div>
         <p className="az-eyebrow mb-1">Missions</p>
         {(Object.keys(MISSIONS) as MissionId[]).map((m) => (
           <div key={m} className="grid grid-cols-4 gap-1">
