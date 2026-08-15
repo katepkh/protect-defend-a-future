@@ -20,7 +20,7 @@ function Block({ n, title, children }: { n: string; title: string; children: Rea
   return (
     <section className="border-t border-line py-14">
       <p className="az-eyebrow">{n}</p>
-      <h2 className="az-h3 mt-4 max-w-[24ch] text-ivory">{title}</h2>
+      <h2 className="mt-4 max-w-[24ch] font-display text-2xl font-bold leading-tight tracking-tight text-ivory md:text-[1.75rem]">{title}</h2>
       <div className="mt-6 max-w-[62ch] space-y-5 text-[1rem] leading-[1.7] text-muted-ink">
         {children}
       </div>
