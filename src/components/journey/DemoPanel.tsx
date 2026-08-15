@@ -2,13 +2,28 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { ALL_ROUTES } from "@/lib/steps";
 import { useJourney } from "@/state/journey";
+import { MISSIONS, sampleDebrief } from "@/lib/missions";
+import type { MissionId } from "@/lib/missions/types";
 
 export function DemoPanel() {
   const [open, setOpen] = useState(false);
   const taps = useRef<number[]>([]);
   const navigate = useNavigate();
   const search = useRouterState({ select: (s) => s.location.searchStr });
-  const { loadSample, simulateLater, reset, journey } = useJourney();
+  const { loadSample, simulateLater, reset, journey, update } = useJourney();
+
+  const jumpMission = (m: MissionId, phase: "brief" | "active" | "debrief", sample?: boolean) => {
+    if (sample) {
+      const d = sampleDebrief(m);
+      update({ missionCompleted: m, missionSignals: d.signals });
+    }
+    void navigate({
+      to: "/mission",
+      search: sample
+        ? { m, phase, sample: "1" as const, demo: "1" as const }
+        : { m, phase, demo: "1" as const },
+    });
+  };
 
   useEffect(() => {
     if (search.includes("demo=1")) setOpen(true);
@@ -61,6 +76,33 @@ export function DemoPanel() {
         ))}
       </div>
       <div className="mt-3 space-y-1">
+        <p className="az-eyebrow mb-1">Missions</p>
+        {(Object.keys(MISSIONS) as MissionId[]).map((m) => (
+          <div key={m} className="grid grid-cols-4 gap-1">
+            <span className="self-center text-[0.7rem] text-muted-ink">{m.toUpperCase()}</span>
+            <button
+              type="button"
+              onClick={() => jumpMission(m, "brief")}
+              className="border border-line px-1 py-1 text-[0.65rem] text-muted-ink transition-colors hover:border-accent-blue hover:text-ivory"
+            >
+              Brief
+            </button>
+            <button
+              type="button"
+              onClick={() => jumpMission(m, "active")}
+              className="border border-line px-1 py-1 text-[0.65rem] text-muted-ink transition-colors hover:border-accent-blue hover:text-ivory"
+            >
+              Task
+            </button>
+            <button
+              type="button"
+              onClick={() => jumpMission(m, "debrief", true)}
+              className="border border-line px-1 py-1 text-[0.65rem] text-ivory transition-colors hover:border-accent-blue"
+            >
+              Result
+            </button>
+          </div>
+        ))}
         <button
           type="button"
           onClick={loadSample}
