@@ -19,6 +19,7 @@ import { Route as OrganisationsRouteImport } from './routes/organisations'
 import { Route as PathwaysRouteImport } from './routes/pathways'
 import { Route as RealityRouteImport } from './routes/reality'
 import { Route as ReturnRouteImport } from './routes/return'
+import { Route as ApiReflectRouteImport } from './routes/api/reflect'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const ReturnRoute = ReturnRouteImport.update({
   path: '/return',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReflectRoute = ApiReflectRouteImport.update({
+  id: '/api/reflect',
+  path: '/api/reflect',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   PathwaysRoute: typeof PathwaysRoute
   RealityRoute: typeof RealityRoute
   ReturnRoute: typeof ReturnRoute
+  ApiReflectRoute: typeof ApiReflectRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReturnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/reflect': {
+      id: '/api/reflect'
+      path: '/api/reflect'
+      fullPath: '/api/reflect'
+      preLoaderRoute: typeof ApiReflectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   PathwaysRoute: PathwaysRoute,
   RealityRoute: RealityRoute,
   ReturnRoute: ReturnRoute,
+  ApiReflectRoute: ApiReflectRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
