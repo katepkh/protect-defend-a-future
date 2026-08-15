@@ -23,7 +23,7 @@ export function StepIndicator() {
             return (
               <li key={step.path} className="flex items-center">
                 <Link
-                  to={step.path}
+                  to={step.path as "/"}
                   aria-current={isCurrent ? "step" : undefined}
                   title={step.name}
                   className={`flex items-center gap-2 rounded-sm px-2 py-1 text-[0.68rem] font-semibold tracking-[0.18em] transition-colors duration-300 ${
