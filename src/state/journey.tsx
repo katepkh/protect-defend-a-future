@@ -77,8 +77,6 @@ export const SAMPLE_JOURNEY: JourneyState = {
 };
 
 const KEY = "protect.journey.v1";
-/** Pre-rename key. Read once, rewritten under the new key, then left alone. */
-const LEGACY_KEY = "azimuth.journey.v1";
 
 type Ctx = {
   journey: JourneyState;
@@ -97,15 +95,7 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      let raw = localStorage.getItem(KEY);
-      if (!raw) {
-        const legacy = localStorage.getItem(LEGACY_KEY);
-        if (legacy) {
-          localStorage.setItem(KEY, legacy);
-          localStorage.removeItem(LEGACY_KEY);
-          raw = legacy;
-        }
-      }
+      const raw = localStorage.getItem(KEY);
       if (raw) setJourney({ ...EMPTY_JOURNEY, ...(JSON.parse(raw) as JourneyState) });
     } catch {
       /* ignore corrupt state */
