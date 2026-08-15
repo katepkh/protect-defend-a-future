@@ -1,3 +1,4 @@
+import type { MissionId, SignalSet } from "@/lib/missions/types";
 import {
   createContext,
   useCallback,
@@ -13,6 +14,8 @@ export type Direction = "serve" | "build" | "support" | "explore" | null;
 export type JourneyState = {
   direction: Direction;
   missionResults: Record<string, unknown> | null;
+  missionCompleted: MissionId | null;
+  missionSignals: SignalSet;
   guideAnswers: Record<string, string>;
   capabilitySignals: string[];
   selectedPathway: string | null;
@@ -24,6 +27,8 @@ export type JourneyState = {
 export const EMPTY_JOURNEY: JourneyState = {
   direction: null,
   missionResults: null,
+  missionCompleted: null,
+  missionSignals: {},
   guideAnswers: {},
   capabilitySignals: [],
   selectedPathway: null,
@@ -38,6 +43,12 @@ export const SAMPLE_JOURNEY: JourneyState = {
     task: "Triage three logistics reports for a resupply window",
     accuracy: 0.82,
     minutes: 6,
+  },
+  missionCompleted: "a",
+  missionSignals: {
+    visual: { value: 83, note: "You identified 5 of 6 genuine damage indicators in a low-contrast synthetic frame." },
+    calibration: { value: 88, note: "Your stated confidence matched what the ground truth supported." },
+    speed: { value: 68, note: "You made 8 judgements in 71 seconds without the option to defer." },
   },
   guideAnswers: {
     motivation: "I have eight years in embedded systems and want it to matter.",
