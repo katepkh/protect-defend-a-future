@@ -194,20 +194,35 @@ export function debriefMissionA(r: MissionAResult): MissionDebrief {
     );
   }
 
+  const calibrationNote = (() => {
+    if (r.calibration === null) {
+      return `You did not set a confidence level on ${r.flags.length === 1 ? "your flag" : "any of your flags"}, so there is nothing here to read. This is recorded as not observed rather than scored against you.`;
+    }
+    if (r.calibration < 40) {
+      return "Your stated confidence did not match what the frame supported: certainty where the evidence was thin, or thin evidence called firmly.";
+    }
+    if (r.calibration < 75) {
+      return "Partly matched. Some calls carried the right amount of doubt and some ran ahead of the evidence.";
+    }
+    return "Your stated confidence matched what the ground truth supported.";
+  })();
+
+  if (r.defaulted > 0) {
+    paragraphs.push(
+      r.stated === 0
+        ? `You left the confidence level unset on every flag, so nothing was recorded about how sure you were. Calibration is shown as not observed rather than scored low — an unset control is a missing reading, not a wrong answer.`
+        : `${r.defaulted} of your ${r.flags.length} flags were left at the default confidence. Those are excluded from the calibration reading, which is based only on the ${r.stated} ${r.stated === 1 ? "call" : "calls"} where you actively chose a level.`,
+    );
+  }
+
   const signals: SignalSet = {
     visual: {
       value: r.detection,
       note: `You identified ${r.detected} of ${TRUE_DAMAGE_COUNT} genuine damage indicators in a low-contrast synthetic frame.`,
     },
-    calibration: {
-      value: r.calibration,
-      note:
-        r.ambiguousOverconfident > 0
-          ? "Your confidence ran ahead of your evidence on the ambiguous structures."
-          : r.confidentWrong > 0
-            ? "Mostly well matched, with a small number of certain calls that the ground truth did not support."
-            : "Your stated confidence matched what the ground truth supported.",
-    },
+    ...(r.calibration === null
+      ? {}
+      : { calibration: { value: r.calibration, note: calibrationNote } }),
     speed: {
       value: speedSignal(r.flags.length, r.elapsed),
       note: `You made ${r.flags.length} ${r.flags.length === 1 ? "judgement" : "judgements"} in ${Math.round(r.elapsed)} seconds without the option to defer.`,
@@ -227,9 +242,12 @@ export function debriefMissionA(r: MissionAResult): MissionDebrief {
       },
       {
         label: "Calibration",
-        value: `${r.calibration}`,
-        detail: "Whether your certainty matched the evidence. The measure that matters most here.",
-        tone: r.calibration >= 60 ? "verified" : "signal",
+        value: r.calibration === null ? "Not set" : `${r.calibration} / 100`,
+        detail:
+          r.calibration === null
+            ? "No confidence level was chosen, so there is nothing to read here."
+            : "How well your certainty matched the evidence, across the calls where you chose a level.",
+        tone: r.calibration === null ? "neutral" : r.calibration >= 60 ? "verified" : "signal",
       },
       {
         label: "Restraint",
