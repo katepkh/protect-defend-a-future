@@ -151,7 +151,12 @@ export function MissionC({
       </div>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
-        <ul className="space-y-3">
+        <div>
+          <p className="mb-3 max-w-[62ch] text-[0.8rem] leading-relaxed text-muted-ink">
+            Sort each card by what it does to the claim. If a source turns out not to be independent
+            of another, mark it — spotting that is worth more here than the verdict itself.
+          </p>
+          <ul className="space-y-3">
           {EVIDENCE.map((e) => (
             <li key={e.id} className="border border-line bg-panel p-4">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -209,7 +214,8 @@ export function MissionC({
               </div>
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
 
         <aside className="space-y-4" aria-label="Verdict">
           <div className="border border-line bg-panel p-5">
