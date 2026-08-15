@@ -15,7 +15,7 @@ export function EraseEverything({ className = "" }: { className?: string }) {
       for (let i = localStorage.length - 1; i >= 0; i -= 1) {
         const key = localStorage.key(i);
         if (!key) continue;
-        if (key.startsWith("protect.") || key.startsWith("azimuth.")) {
+        if (key.startsWith("protect.")) {
           localStorage.removeItem(key);
           removed.push(key);
         }
