@@ -15,6 +15,7 @@ import { Route as DirectionRouteImport } from './routes/direction'
 import { Route as EthicsRouteImport } from './routes/ethics'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as MissionRouteImport } from './routes/mission'
+import { Route as NotReadyRouteImport } from './routes/not-ready'
 import { Route as OrganisationsRouteImport } from './routes/organisations'
 import { Route as PathwaysRouteImport } from './routes/pathways'
 import { Route as RealityRouteImport } from './routes/reality'
@@ -51,6 +52,11 @@ const MissionRoute = MissionRouteImport.update({
   path: '/mission',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotReadyRoute = NotReadyRouteImport.update({
+  id: '/not-ready',
+  path: '/not-ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganisationsRoute = OrganisationsRouteImport.update({
   id: '/organisations',
   path: '/organisations',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
@@ -97,6 +104,7 @@ export interface FileRoutesByTo {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
@@ -111,6 +119,7 @@ export interface FileRoutesById {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
@@ -126,6 +135,7 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
@@ -139,6 +149,7 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
@@ -166,6 +178,7 @@ export interface RootRouteChildren {
   EthicsRoute: typeof EthicsRoute
   GuideRoute: typeof GuideRoute
   MissionRoute: typeof MissionRoute
+  NotReadyRoute: typeof NotReadyRoute
   OrganisationsRoute: typeof OrganisationsRoute
   PathwaysRoute: typeof PathwaysRoute
   RealityRoute: typeof RealityRoute
@@ -217,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MissionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/not-ready': {
+      id: '/not-ready'
+      path: '/not-ready'
+      fullPath: '/not-ready'
+      preLoaderRoute: typeof NotReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organisations': {
       id: '/organisations'
       path: '/organisations'
@@ -262,6 +282,7 @@ const rootRouteChildren: RootRouteChildren = {
   EthicsRoute: EthicsRoute,
   GuideRoute: GuideRoute,
   MissionRoute: MissionRoute,
+  NotReadyRoute: NotReadyRoute,
   OrganisationsRoute: OrganisationsRoute,
   PathwaysRoute: PathwaysRoute,
   RealityRoute: RealityRoute,
