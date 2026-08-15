@@ -74,7 +74,12 @@ export type MissionAResult = {
   elapsed: number;
   flags: Flag[];
   detection: number;
-  calibration: number;
+  /** Null when the person never actively chose a confidence level. */
+  calibration: number | null;
+  /** Flags left at the default confidence, never actively chosen. */
+  defaulted: number;
+  /** Flags where a confidence level was actively chosen. */
+  stated: number;
   restraint: number;
 };
 
@@ -104,15 +109,26 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
     (f) => conf(f) === "certain" && truthOf(f.id) !== "damaged",
   ).length;
 
-  let points = 0;
-  for (const f of clean) {
-    const t = truthOf(f.id);
-    const c = conf(f);
-    if (t === "damaged") points += c === "certain" ? 2 : c === "likely" ? 1.5 : 1;
-    else if (t === "ambiguous") points += c === "uncertain" ? 2 : c === "likely" ? 1 : -1;
-    else points += c === "certain" ? -2 : c === "likely" ? -1 : -0.25;
-  }
-  const maxPoints = TRUE_DAMAGE_COUNT * 2 + AMBIGUOUS_COUNT * 2;
+  // Calibration measures the quality of the confidence levels the person
+  // actually chose, on the flags they actually made. It is not a coverage
+  // measure — missing a structure costs detection, never calibration — and a
+  // flag left at the default confidence is not scored at all, because no
+  // judgement of confidence was expressed.
+  const stated = clean.filter((f) => f.confidence !== null);
+  const defaulted = clean.length - stated.length;
+  const creditFor = (t: Truth, c: Confidence) => {
+    if (t === "damaged") return c === "certain" ? 1 : c === "likely" ? 0.8 : 0.55;
+    if (t === "ambiguous") return c === "uncertain" ? 1 : c === "likely" ? 0.75 : 0;
+    return c === "uncertain" ? 0.45 : c === "likely" ? 0.15 : 0;
+  };
+  const calibration =
+    stated.length === 0
+      ? null
+      : clamp(
+          (stated.reduce((sum, f) => sum + creditFor(truthOf(f.id), f.confidence!), 0) /
+            stated.length) *
+            100,
+        );
 
   return {
     detected: detectedIds.length,
@@ -124,7 +140,9 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
     elapsed,
     flags: clean,
     detection: clamp((detectedIds.length / TRUE_DAMAGE_COUNT) * 100),
-    calibration: clamp((points / maxPoints) * 100),
+    calibration,
+    defaulted,
+    stated: stated.length,
     restraint: clamp(100 - falsePositives.length * 22),
   };
 }
