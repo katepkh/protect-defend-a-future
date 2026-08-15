@@ -3,7 +3,7 @@ import { useJourney } from "@/state/journey";
 
 /**
  * Proof of the privacy claim rather than a promise about it. Clears every
- * PROTECT key from this browser and says exactly what went.
+ * TOPROTECT key from this browser and says exactly what went.
  */
 export function EraseEverything({ className = "" }: { className?: string }) {
   const { reset } = useJourney();
@@ -15,7 +15,7 @@ export function EraseEverything({ className = "" }: { className?: string }) {
       for (let i = localStorage.length - 1; i >= 0; i -= 1) {
         const key = localStorage.key(i);
         if (!key) continue;
-        if (key.startsWith("protect.")) {
+        if (key.startsWith("toprotect.") || key.startsWith("protect.")) {
           localStorage.removeItem(key);
           removed.push(key);
         }
@@ -31,7 +31,7 @@ export function EraseEverything({ className = "" }: { className?: string }) {
     <div className={`border border-line bg-panel p-8 md:p-10 ${className}`}>
       <p className="az-eyebrow">Your data, on your device</p>
       <p className="mt-4 max-w-[62ch] text-[0.98rem] leading-relaxed text-muted-ink">
-        Everything PROTECT holds about you is in this browser&rsquo;s local storage. There is no
+        Everything TOPROTECT holds about you is in this browser&rsquo;s local storage. There is no
         account and no copy anywhere else, so erasing it here erases it entirely.
       </p>
       <button

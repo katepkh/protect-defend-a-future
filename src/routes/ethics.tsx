@@ -7,10 +7,10 @@ import { ILLUSTRATIVE_NOTICE } from "@/lib/pathways/types";
 export const Route = createFileRoute("/ethics")({
   head: () => ({
     meta: [
-      { title: "Data and ethics — PROTECT" },
-      { name: "description", content: "What PROTECT collects, what it never asks, why there is no automated decision about you, and what we deliberately did not build." },
-      { property: "og:title", content: "Data and ethics — PROTECT" },
-      { property: "og:description", content: "What PROTECT collects, what it never asks, why there is no automated decision about you, and what we deliberately did not build." },
+      { title: "Data and ethics — TOPROTECT" },
+      { name: "description", content: "What TOPROTECT collects, what it never asks, why there is no automated decision about you, and what we deliberately did not build." },
+      { property: "og:title", content: "Data and ethics — TOPROTECT" },
+      { property: "og:description", content: "What TOPROTECT collects, what it never asks, why there is no automated decision about you, and what we deliberately did not build." },
     ],
   }),
   component: EthicsPage,

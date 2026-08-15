@@ -6,13 +6,13 @@ import { STEPS } from "@/lib/steps";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PROTECT — There is more than one way to defend a future." },
+      { title: "TOPROTECT — There is more than one way to defend a future." },
       {
         name: "description",
         content:
           "Try the work, understand what it really costs, and find the pathway that genuinely fits you. A gateway for international supporters of Ukraine.",
       },
-      { property: "og:title", content: "PROTECT — There is more than one way to defend a future." },
+      { property: "og:title", content: "TOPROTECT — There is more than one way to defend a future." },
       {
         property: "og:description",
         content:
@@ -50,7 +50,8 @@ function Index() {
     <main>
       <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-6">
         <HeroBackdrop />
-        <div className="relative mx-auto w-full max-w-[1400px] pb-24 pt-24">
+        <div className="relative mx-auto grid w-full max-w-[1400px] items-center gap-14 pb-24 pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-20">
+          <div>
           <Reveal>
             <p className="az-eyebrow">INTERNATIONAL CONTRIBUTION TO UKRAINE&rsquo;S DEFENCE</p>
           </Reveal>
@@ -62,7 +63,7 @@ function Index() {
           <Reveal delay={240}>
             <p className="mt-8 max-w-[58ch] text-[1.0625rem] leading-[1.65] text-muted-ink">
               Thousands of people outside Ukraine want to help and do not know where they are
-              actually useful. PROTECT lets you try the work, understand what it really costs, and
+              actually useful. TOPROTECT lets you try the work, understand what it really costs, and
               find the pathway that genuinely fits you.
             </p>
           </Reveal>
@@ -81,6 +82,57 @@ function Index() {
                 How this works
               </a>
             </div>
+          </Reveal>
+          </div>
+          <Reveal delay={420}>
+            <aside className="border border-line bg-panel p-7 md:p-8">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden
+                  className="inline-block h-1.5 w-1.5 rounded-full bg-verified"
+                />
+                <p className="az-eyebrow">AI CONTRIBUTION GUIDE</p>
+                <span className="text-[0.68rem] uppercase tracking-[0.18em] text-muted-ink">
+                  ready
+                </span>
+              </div>
+              <h2 className="az-h3 mt-5 text-ivory">Start with what you can offer.</h2>
+              <p className="mt-3 max-w-[42ch] text-[0.95rem] leading-relaxed text-muted-ink">
+                Tell the guide about your skills, the time you have, where you are, and the kind of
+                commitment you are considering.
+              </p>
+
+              <p className="az-eyebrow mt-8">Example exchange</p>
+              <div className="mt-4 space-y-4">
+                <p className="border-l-2 border-line bg-panel-2 px-4 py-3 text-[0.9rem] leading-relaxed text-ivory/90">
+                  &ldquo;I&rsquo;m an electrical engineer in London. I can help five hours a
+                  week.&rdquo;
+                </p>
+                <div className="border-l-2 border-accent-blue/70 px-4 py-1">
+                  <p className="text-[0.9rem] leading-relaxed text-muted-ink">
+                    &ldquo;You have credible routes in remote infrastructure resilience and defence
+                    technology. Let&rsquo;s try a short mission before you choose.&rdquo;
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {["BUILD", "SUPPORT", "REMOTE"].map((t) => (
+                      <span
+                        key={t}
+                        className="border border-line px-2.5 py-1 text-[0.65rem] font-semibold tracking-[0.18em] text-muted-ink"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/guide"
+                className="mt-8 inline-flex w-full items-center justify-center gap-3 bg-accent-blue px-6 py-3.5 text-sm font-semibold tracking-wide text-ivory transition-opacity duration-300 hover:opacity-90"
+              >
+                Talk to the guide <span aria-hidden>→</span>
+              </Link>
+            </aside>
           </Reveal>
         </div>
         <div

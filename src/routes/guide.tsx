@@ -12,9 +12,9 @@ export const Route = createFileRoute("/guide")({
   },
   head: () => ({
     meta: [
-      { title: "Talk to the guide — PROTECT" },
+      { title: "Talk to the guide — TOPROTECT" },
       { name: "description", content: "A short, autonomy-supportive conversation. The guide asks questions and reflects back what it hears. It never decides for you." },
-      { property: "og:title", content: "Talk to the guide — PROTECT" },
+      { property: "og:title", content: "Talk to the guide — TOPROTECT" },
       { property: "og:description", content: "A short, autonomy-supportive conversation. The guide asks questions and reflects back what it hears. It never decides for you." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

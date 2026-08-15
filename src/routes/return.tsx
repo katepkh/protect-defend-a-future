@@ -13,9 +13,9 @@ import { useJourney } from "@/state/journey";
 export const Route = createFileRoute("/return")({
   head: () => ({
     meta: [
-      { title: "Return and reroute — PROTECT" },
+      { title: "Return and reroute — TOPROTECT" },
       { name: "description", content: "Come back weeks later. Check in, ask for a mentor, or take a different pathway without starting over." },
-      { property: "og:title", content: "Return and reroute — PROTECT" },
+      { property: "og:title", content: "Return and reroute — TOPROTECT" },
       { property: "og:description", content: "Come back weeks later. Check in, ask for a mentor, or take a different pathway without starting over." },
     ],
   }),

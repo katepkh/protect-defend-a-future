@@ -76,7 +76,9 @@ export const SAMPLE_JOURNEY: JourneyState = {
   checkIn: null,
 };
 
-const KEY = "protect.journey.v1";
+const KEY = "toprotect.journey.v1";
+/** Previous product name. Migrated once so an in-progress session survives. */
+const LEGACY_KEY = "protect.journey.v1";
 
 type Ctx = {
   journey: JourneyState;
@@ -95,7 +97,15 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(KEY);
+      let raw = localStorage.getItem(KEY);
+      if (!raw) {
+        const legacy = localStorage.getItem(LEGACY_KEY);
+        if (legacy) {
+          localStorage.setItem(KEY, legacy);
+          localStorage.removeItem(LEGACY_KEY);
+          raw = legacy;
+        }
+      }
       if (raw) setJourney({ ...EMPTY_JOURNEY, ...(JSON.parse(raw) as JourneyState) });
     } catch {
       /* ignore corrupt state */

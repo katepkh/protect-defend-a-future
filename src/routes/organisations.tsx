@@ -9,10 +9,10 @@ import type { PathwayCategory, VerificationStatus } from "@/lib/pathways/types";
 export const Route = createFileRoute("/organisations")({
   head: () => ({
     meta: [
-      { title: "Organisation registry — PROTECT" },
-      { name: "description", content: "Every organisation referenced in PROTECT, grouped by category, with an honest verification status and its official link." },
-      { property: "og:title", content: "Organisation registry — PROTECT" },
-      { property: "og:description", content: "Every organisation referenced in PROTECT, grouped by category, with an honest verification status and its official link." },
+      { title: "Organisation registry — TOPROTECT" },
+      { name: "description", content: "Every organisation referenced in TOPROTECT, grouped by category, with an honest verification status and its official link." },
+      { property: "og:title", content: "Organisation registry — TOPROTECT" },
+      { property: "og:description", content: "Every organisation referenced in TOPROTECT, grouped by category, with an honest verification status and its official link." },
     ],
   }),
   component: OrganisationsPage,

@@ -6,13 +6,13 @@ import { useJourney, type Direction } from "@/state/journey";
 export const Route = createFileRoute("/direction")({
   head: () => ({
     meta: [
-      { title: "Choose a direction — PROTECT" },
+      { title: "Choose a direction — TOPROTECT" },
       {
         name: "description",
         content:
           "Serve, build, support, or explore. Choosing a direction is not a commitment — it only shapes the first task you try.",
       },
-      { property: "og:title", content: "Choose a direction — PROTECT" },
+      { property: "og:title", content: "Choose a direction — TOPROTECT" },
       {
         property: "og:description",
         content: "Four honest starting points for contributing to Ukraine's defence.",

@@ -9,7 +9,7 @@ import { createFileRoute } from "@tanstack/react-router";
  * scripted reflection with no visible degradation.
  */
 
-const SYSTEM_PROMPT = `You are the reflection voice of PROTECT, a calm tool that helps people find where their skills are genuinely useful in supporting Ukraine.
+const SYSTEM_PROMPT = `You are the reflection voice of TOPROTECT, a calm tool that helps people find where their skills are genuinely useful in supporting Ukraine.
 
 Your only job is to mirror back what the person just said, in the manner of motivational interviewing.
 
