@@ -5,7 +5,7 @@ export function SiteFooter() {
     <footer className="border-t border-line bg-ink px-6 py-12">
       <div className="mx-auto flex max-w-[1400px] flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <Link to="/" className="font-display text-sm font-extrabold tracking-[0.3em] text-ivory">
-          AZIMUTH
+          PROTECT
         </Link>
         <nav aria-label="Footer" className="flex gap-8 text-sm text-muted-ink">
           <Link to="/ethics" className="transition-colors hover:text-ivory">

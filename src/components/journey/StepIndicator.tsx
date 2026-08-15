@@ -14,7 +14,7 @@ export function StepIndicator() {
         className="mx-auto flex max-w-[1400px] items-center gap-6 px-6 py-3"
       >
         <Link to="/" className="font-display text-sm font-extrabold tracking-[0.28em] text-ivory">
-          AZIMUTH
+          PROTECT
         </Link>
         <ol className="flex flex-1 flex-wrap items-center gap-x-1 gap-y-2">
           {STEPS.map((step, i) => {

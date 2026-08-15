@@ -4,9 +4,9 @@ import { Placeholder } from "@/components/journey/Placeholder";
 export const Route = createFileRoute("/reality")({
   head: () => ({
     meta: [
-      { title: "Understand reality — AZIMUTH" },
+      { title: "Understand reality — PROTECT" },
       { name: "description", content: "Commitment, risk, language requirements, and legal constraints, stated plainly before you go any further." },
-      { property: "og:title", content: "Understand reality — AZIMUTH" },
+      { property: "og:title", content: "Understand reality — PROTECT" },
       { property: "og:description", content: "Commitment, risk, language requirements, and legal constraints, stated plainly before you go any further." },
     ],
   }),

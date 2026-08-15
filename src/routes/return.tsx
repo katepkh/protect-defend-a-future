@@ -4,9 +4,9 @@ import { Placeholder } from "@/components/journey/Placeholder";
 export const Route = createFileRoute("/return")({
   head: () => ({
     meta: [
-      { title: "Return and reroute — AZIMUTH" },
+      { title: "Return and reroute — PROTECT" },
       { name: "description", content: "Come back weeks later. Check in, ask for a mentor, or take a different pathway without starting over." },
-      { property: "og:title", content: "Return and reroute — AZIMUTH" },
+      { property: "og:title", content: "Return and reroute — PROTECT" },
       { property: "og:description", content: "Come back weeks later. Check in, ask for a mentor, or take a different pathway without starting over." },
     ],
   }),

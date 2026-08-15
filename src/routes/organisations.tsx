@@ -5,13 +5,13 @@ import { Reveal } from "@/components/journey/Reveal";
 export const Route = createFileRoute("/organisations")({
   head: () => ({
     meta: [
-      { title: "Verified organisations — AZIMUTH" },
+      { title: "Verified organisations — PROTECT" },
       {
         name: "description",
         content:
           "A registry of organisations, with the basis of verification stated openly and the limits of that verification stated just as openly.",
       },
-      { property: "og:title", content: "Verified organisations — AZIMUTH" },
+      { property: "og:title", content: "Verified organisations — PROTECT" },
       {
         property: "og:description",
         content: "Who verified an organisation, when, and what that verification does not cover.",

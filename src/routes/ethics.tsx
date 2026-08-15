@@ -5,13 +5,13 @@ import { Reveal } from "@/components/journey/Reveal";
 export const Route = createFileRoute("/ethics")({
   head: () => ({
     meta: [
-      { title: "Data and ethics — AZIMUTH" },
+      { title: "Data and ethics — PROTECT" },
       {
         name: "description",
         content:
-          "How AZIMUTH handles your data: everything stays in your browser. No accounts, no tracking, no transfer of military applications to private companies.",
+          "How PROTECT handles your data: everything stays in your browser. No accounts, no tracking, no transfer of military applications to private companies.",
       },
-      { property: "og:title", content: "Data and ethics — AZIMUTH" },
+      { property: "og:title", content: "Data and ethics — PROTECT" },
       {
         property: "og:description",
         content: "Everything stays in your browser. No accounts, no tracking, no scoring.",
@@ -66,7 +66,7 @@ function EthicsPage() {
         </div>
         <Reveal delay={100}>
           <p className="mt-10 max-w-[62ch] border-l-2 border-signal/60 pl-5 text-sm leading-relaxed text-muted-ink">
-            AZIMUTH is a demonstration prototype. It is not affiliated with any government or armed
+            PROTECT is a demonstration prototype. It is not affiliated with any government or armed
             force, and nothing here constitutes legal advice.
           </p>
         </Reveal>

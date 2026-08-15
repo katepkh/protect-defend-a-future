@@ -72,7 +72,7 @@ export const SAMPLE_JOURNEY: JourneyState = {
   checkIn: null,
 };
 
-const KEY = "azimuth.journey.v1";
+const KEY = "protect.journey.v1";
 
 type Ctx = {
   journey: JourneyState;

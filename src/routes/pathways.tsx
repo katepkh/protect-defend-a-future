@@ -4,9 +4,9 @@ import { Placeholder } from "@/components/journey/Placeholder";
 export const Route = createFileRoute("/pathways")({
   head: () => ({
     meta: [
-      { title: "See your pathways — AZIMUTH" },
+      { title: "See your pathways — PROTECT" },
       { name: "description", content: "Three transparent options with honest trade-offs, each explained in plain language. Never a black-box verdict." },
-      { property: "og:title", content: "See your pathways — AZIMUTH" },
+      { property: "og:title", content: "See your pathways — PROTECT" },
       { property: "og:description", content: "Three transparent options with honest trade-offs, each explained in plain language. Never a black-box verdict." },
     ],
   }),
