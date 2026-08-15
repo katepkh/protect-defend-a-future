@@ -38,7 +38,7 @@ export const MISSIONS: Record<MissionId, MissionMeta> = {
     title: "Verify the claim",
     strapline: "Five pieces of evidence. One claim. Say what you can actually stand behind.",
     brief:
-      "A serious claim is circulating and five pieces of evidence have been collected. Sort each one by what it actually does to the claim, then give a verdict you would be willing to defend. Reaching no conclusion is a permitted and sometimes correct outcome.",
+      "A serious claim is circulating and five pieces of evidence have been collected. Sort each one by what it actually does to the claim, then give a verdict you would be willing to defend. If a source turns out not to be independent of another, mark it — spotting that is worth more here than the verdict itself. Reaching no conclusion is a permitted and sometimes correct outcome.",
     observes: ["Source scepticism", "Uncertainty calibration", "Decision speed under pressure"],
   },
 };
