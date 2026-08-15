@@ -11,7 +11,7 @@ import {
 import { useJourney } from "@/state/journey";
 import { useReflection } from "./useReflection";
 
-type Turn = { questionId: string; value: string; reflection: string };
+type Turn = { questionId: string; value: string; reflection: string; earlier?: boolean };
 
 export function GuideConversation({ prefill }: { prefill?: Record<string, string> }) {
   const navigate = useNavigate();
@@ -22,6 +22,7 @@ export function GuideConversation({ prefill }: { prefill?: Record<string, string
   const [pending, setPending] = useState<{ questionId: string; value: string } | null>(null);
   const { text, streaming, reflect, setScripted } = useReflection();
   const endRef = useRef<HTMLDivElement | null>(null);
+  const seeded = useRef(false);
 
   const question = GUIDE_QUESTIONS[index];
   const done = index >= GUIDE_QUESTIONS.length;
@@ -44,6 +45,24 @@ export function GuideConversation({ prefill }: { prefill?: Record<string, string
     setIndex(GUIDE_QUESTIONS.length);
     setPending(null);
   }, [prefill]);
+
+  // Answers already given at /direction arrive here already answered, shown as
+  // previously given, with a visible way to change them. Nothing is re-asked.
+  useEffect(() => {
+    if (prefill || seeded.current) return;
+    const existing = journey.guideAnswers;
+    if (!existing || Object.keys(existing).length === 0) return;
+    const filled: Turn[] = [];
+    for (const q of GUIDE_QUESTIONS) {
+      const v = existing[q.id];
+      if (!v) break;
+      filled.push({ questionId: q.id, value: v, reflection: scriptedReflection(q.id, v), earlier: true });
+    }
+    if (filled.length === 0) return;
+    seeded.current = true;
+    setTurns(filled);
+    setIndex(filled.length);
+  }, [prefill, journey.guideAnswers]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -87,7 +106,7 @@ export function GuideConversation({ prefill }: { prefill?: Record<string, string
       </p>
 
       <div className="mt-16 space-y-14">
-        {turns.map((t) => {
+        {turns.map((t, ti) => {
           const q = GUIDE_QUESTIONS.find((x) => x.id === t.questionId)!;
           return (
             <article key={t.questionId} className="az-turn space-y-4 opacity-60">
@@ -96,6 +115,25 @@ export function GuideConversation({ prefill }: { prefill?: Record<string, string
                 {answerLabel(t.questionId, t.value)}
               </p>
               <p className="text-[0.95rem] leading-relaxed text-muted-ink">{t.reflection}</p>
+              {t.earlier ? (
+                <div className="flex flex-wrap items-center gap-4">
+                  <p className="text-[0.8rem] uppercase tracking-[0.22em] text-muted-ink">
+                    Answered earlier
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTurns((prev) => prev.slice(0, ti));
+                      setIndex(ti);
+                      setPending(null);
+                      setScripted("");
+                    }}
+                    className="border border-line px-4 py-2 text-sm text-ivory transition-colors hover:border-accent-blue"
+                  >
+                    Change this answer
+                  </button>
+                </div>
+              ) : null}
             </article>
           );
         })}
