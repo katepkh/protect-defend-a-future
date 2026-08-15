@@ -56,7 +56,7 @@ function Index() {
             <p className="az-eyebrow">INTERNATIONAL CONTRIBUTION TO UKRAINE&rsquo;S DEFENCE</p>
           </Reveal>
           <Reveal delay={120}>
-            <h1 className="az-hero mt-7 max-w-[16ch] text-ivory">
+            <h1 className="az-hero mt-7 max-w-[18ch] text-ivory">
               There is more than one way to defend democracy.
             </h1>
           </Reveal>
