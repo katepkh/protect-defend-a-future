@@ -71,7 +71,7 @@ function ActPage() {
   if (!pathway) {
     return (
       <main className="relative px-6 py-24">
-        <div className="mx-auto max-w-[1400px]">
+        <div className="mx-auto max-w-[1100px]">
           <p className="az-eyebrow">STEP 07 · YOUR NEXT STEP</p>
           <h1 className="az-h2 mt-5 text-ivory">Choose a pathway first.</h1>
           <p className="az-body mt-6 text-muted-ink">
@@ -128,7 +128,7 @@ function ActPage() {
           </p>
         </Reveal>
 
-        <div className="mt-12 max-w-[80ch]">
+        <div className="mt-12 max-w-[90ch]">
           <Reveal>
             <div className="border border-line bg-panel p-8 md:p-10">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-4 text-[0.95rem] text-muted-ink">
