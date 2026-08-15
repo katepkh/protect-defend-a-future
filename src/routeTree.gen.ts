@@ -15,10 +15,12 @@ import { Route as DirectionRouteImport } from './routes/direction'
 import { Route as EthicsRouteImport } from './routes/ethics'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as MissionRouteImport } from './routes/mission'
+import { Route as NotReadyRouteImport } from './routes/not-ready'
 import { Route as OrganisationsRouteImport } from './routes/organisations'
 import { Route as PathwaysRouteImport } from './routes/pathways'
 import { Route as RealityRouteImport } from './routes/reality'
 import { Route as ReturnRouteImport } from './routes/return'
+import { Route as ApiReflectRouteImport } from './routes/api/reflect'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -50,6 +52,11 @@ const MissionRoute = MissionRouteImport.update({
   path: '/mission',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotReadyRoute = NotReadyRouteImport.update({
+  id: '/not-ready',
+  path: '/not-ready',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganisationsRoute = OrganisationsRouteImport.update({
   id: '/organisations',
   path: '/organisations',
@@ -70,6 +77,11 @@ const ReturnRoute = ReturnRouteImport.update({
   path: '/return',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiReflectRoute = ApiReflectRouteImport.update({
+  id: '/api/reflect',
+  path: '/api/reflect',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -78,10 +90,12 @@ export interface FileRoutesByFullPath {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -90,10 +104,12 @@ export interface FileRoutesByTo {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -103,10 +119,12 @@ export interface FileRoutesById {
   '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
+  '/not-ready': typeof NotReadyRoute
   '/organisations': typeof OrganisationsRoute
   '/pathways': typeof PathwaysRoute
   '/reality': typeof RealityRoute
   '/return': typeof ReturnRoute
+  '/api/reflect': typeof ApiReflectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +135,12 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -129,10 +149,12 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   id:
     | '__root__'
     | '/'
@@ -141,10 +163,12 @@ export interface FileRouteTypes {
     | '/ethics'
     | '/guide'
     | '/mission'
+    | '/not-ready'
     | '/organisations'
     | '/pathways'
     | '/reality'
     | '/return'
+    | '/api/reflect'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -154,10 +178,12 @@ export interface RootRouteChildren {
   EthicsRoute: typeof EthicsRoute
   GuideRoute: typeof GuideRoute
   MissionRoute: typeof MissionRoute
+  NotReadyRoute: typeof NotReadyRoute
   OrganisationsRoute: typeof OrganisationsRoute
   PathwaysRoute: typeof PathwaysRoute
   RealityRoute: typeof RealityRoute
   ReturnRoute: typeof ReturnRoute
+  ApiReflectRoute: typeof ApiReflectRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -204,6 +230,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MissionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/not-ready': {
+      id: '/not-ready'
+      path: '/not-ready'
+      fullPath: '/not-ready'
+      preLoaderRoute: typeof NotReadyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organisations': {
       id: '/organisations'
       path: '/organisations'
@@ -232,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReturnRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/reflect': {
+      id: '/api/reflect'
+      path: '/api/reflect'
+      fullPath: '/api/reflect'
+      preLoaderRoute: typeof ApiReflectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -242,10 +282,12 @@ const rootRouteChildren: RootRouteChildren = {
   EthicsRoute: EthicsRoute,
   GuideRoute: GuideRoute,
   MissionRoute: MissionRoute,
+  NotReadyRoute: NotReadyRoute,
   OrganisationsRoute: OrganisationsRoute,
   PathwaysRoute: PathwaysRoute,
   RealityRoute: RealityRoute,
   ReturnRoute: ReturnRoute,
+  ApiReflectRoute: ApiReflectRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
