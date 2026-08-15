@@ -50,24 +50,24 @@ function Index() {
     <main>
       <section className="relative flex min-h-svh flex-col justify-center overflow-hidden px-6">
         <HeroBackdrop />
-        <div className="relative mx-auto w-full max-w-[1400px] pb-28 pt-28">
+        <div className="relative mx-auto w-full max-w-[1400px] pb-24 pt-24">
           <Reveal>
             <p className="az-eyebrow">INTERNATIONAL CONTRIBUTION TO UKRAINE&rsquo;S DEFENCE</p>
           </Reveal>
           <Reveal delay={120}>
-            <h1 className="az-hero mt-8 max-w-[16ch] text-ivory">
+            <h1 className="az-hero mt-7 max-w-[16ch] text-ivory">
               There is more than one way to defend a future.
             </h1>
           </Reveal>
           <Reveal delay={240}>
-            <p className="mt-10 max-w-[58ch] text-[1.0625rem] leading-[1.65] text-muted-ink">
+            <p className="mt-8 max-w-[58ch] text-[1.0625rem] leading-[1.65] text-muted-ink">
               Thousands of people outside Ukraine want to help and do not know where they are
               actually useful. AZIMUTH lets you try the work, understand what it really costs, and
               find the pathway that genuinely fits you.
             </p>
           </Reveal>
           <Reveal delay={360}>
-            <div className="mt-12 flex flex-wrap items-center gap-8">
+            <div className="mt-10 flex flex-wrap items-center gap-8">
               <Link
                 to="/direction"
                 className="inline-flex items-center gap-4 bg-accent-blue px-8 py-4 text-sm font-semibold tracking-wide text-ivory transition-opacity duration-300 hover:opacity-90"
