@@ -32,3 +32,23 @@ export type MatchResult = {
   constraintsApplied: string[];
   preferredCategory: PathwayCategory | null;
 };
+
+/**
+ * A dimension the person themselves named when they said a pathway did not
+ * fit them. It is only ever used as an additional constraint they stated —
+ * never as a judgement about them.
+ */
+export type RejectionDimension = "commitment" | "location" | "language" | "risk" | "work-type";
+
+export type PathwayRejection = {
+  pathwayId: string;
+  dimension: RejectionDimension;
+};
+
+export const REJECTION_LABELS: Record<RejectionDimension, string> = {
+  commitment: "The commitment is too long",
+  location: "The location or relocation does not work",
+  language: "The language requirement is beyond me",
+  risk: "The level of risk is not for me",
+  "work-type": "The type of work is not what I want",
+};
