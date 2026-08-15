@@ -10,33 +10,103 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActRouteImport } from './routes/act'
+import { Route as GuideRouteImport } from './routes/guide'
+import { Route as MissionRouteImport } from './routes/mission'
+import { Route as PathwaysRouteImport } from './routes/pathways'
+import { Route as RealityRouteImport } from './routes/reality'
+import { Route as ReturnRouteImport } from './routes/return'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActRoute = ActRouteImport.update({
+  id: '/act',
+  path: '/act',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionRoute = MissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PathwaysRoute = PathwaysRouteImport.update({
+  id: '/pathways',
+  path: '/pathways',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RealityRoute = RealityRouteImport.update({
+  id: '/reality',
+  path: '/reality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReturnRoute = ReturnRouteImport.update({
+  id: '/return',
+  path: '/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/act' | '/guide' | '/mission' | '/pathways' | '/reality' | '/return'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    '/' | '/act' | '/guide' | '/mission' | '/pathways' | '/reality' | '/return'
+  id:
+    | '__root__'
+    | '/'
+    | '/act'
+    | '/guide'
+    | '/mission'
+    | '/pathways'
+    | '/reality'
+    | '/return'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActRoute: typeof ActRoute
+  GuideRoute: typeof GuideRoute
+  MissionRoute: typeof MissionRoute
+  PathwaysRoute: typeof PathwaysRoute
+  RealityRoute: typeof RealityRoute
+  ReturnRoute: typeof ReturnRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +118,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/act': {
+      id: '/act'
+      path: '/act'
+      fullPath: '/act'
+      preLoaderRoute: typeof ActRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mission': {
+      id: '/mission'
+      path: '/mission'
+      fullPath: '/mission'
+      preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pathways': {
+      id: '/pathways'
+      path: '/pathways'
+      fullPath: '/pathways'
+      preLoaderRoute: typeof PathwaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reality': {
+      id: '/reality'
+      path: '/reality'
+      fullPath: '/reality'
+      preLoaderRoute: typeof RealityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/return': {
+      id: '/return'
+      path: '/return'
+      fullPath: '/return'
+      preLoaderRoute: typeof ReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActRoute: ActRoute,
+  GuideRoute: GuideRoute,
+  MissionRoute: MissionRoute,
+  PathwaysRoute: PathwaysRoute,
+  RealityRoute: RealityRoute,
+  ReturnRoute: ReturnRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

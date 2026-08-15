@@ -29,7 +29,7 @@ export function Placeholder({
           </p>
           {next ? (
             <Link
-              to={next.to}
+              to={next.to as "/"}
               className="mt-6 inline-flex items-center gap-3 text-sm font-semibold text-accent-blue transition-opacity hover:opacity-80"
             >
               {next.label}
