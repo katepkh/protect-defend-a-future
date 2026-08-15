@@ -10,7 +10,6 @@ import {
   SAMPLE_FLAGS_A,
   scoreMissionA,
   STRUCTURES,
-  TRUE_DAMAGE_COUNT,
   type Confidence,
   type Flag,
 } from "@/lib/missions/sceneA";
