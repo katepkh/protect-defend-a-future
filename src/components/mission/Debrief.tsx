@@ -93,7 +93,8 @@ export function Debrief({
       <section className="mt-14" aria-label="Capability signals">
         <p className="az-eyebrow">Signals from this task</p>
         <p className="mt-3 max-w-[62ch] text-[0.88rem] leading-relaxed text-muted-ink">
-          These are signals from one short task, not an assessment of you. They shape what we
+          Each signal is shown out of 100, read from this one short task. They are not an
+          assessment of you. They shape what we
           suggest next. They do not qualify or disqualify you from anything, and no one else sees
           them.
         </p>
