@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActRouteImport } from './routes/act'
 import { Route as DirectionRouteImport } from './routes/direction'
+import { Route as EthicsRouteImport } from './routes/ethics'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as PathwaysRouteImport } from './routes/pathways'
@@ -31,6 +32,11 @@ const ActRoute = ActRouteImport.update({
 const DirectionRoute = DirectionRouteImport.update({
   id: '/direction',
   path: '/direction',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EthicsRoute = EthicsRouteImport.update({
+  id: '/ethics',
+  path: '/ethics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuideRoute = GuideRouteImport.update({
@@ -63,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/act': typeof ActRoute
   '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/act': typeof ActRoute
   '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -84,6 +92,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/act': typeof ActRoute
   '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/act'
     | '/direction'
+    | '/ethics'
     | '/guide'
     | '/mission'
     | '/pathways'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/act'
     | '/direction'
+    | '/ethics'
     | '/guide'
     | '/mission'
     | '/pathways'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/act'
     | '/direction'
+    | '/ethics'
     | '/guide'
     | '/mission'
     | '/pathways'
@@ -127,6 +139,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActRoute: typeof ActRoute
   DirectionRoute: typeof DirectionRoute
+  EthicsRoute: typeof EthicsRoute
   GuideRoute: typeof GuideRoute
   MissionRoute: typeof MissionRoute
   PathwaysRoute: typeof PathwaysRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/direction'
       fullPath: '/direction'
       preLoaderRoute: typeof DirectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ethics': {
+      id: '/ethics'
+      path: '/ethics'
+      fullPath: '/ethics'
+      preLoaderRoute: typeof EthicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide': {
@@ -199,6 +219,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActRoute: ActRoute,
   DirectionRoute: DirectionRoute,
+  EthicsRoute: EthicsRoute,
   GuideRoute: GuideRoute,
   MissionRoute: MissionRoute,
   PathwaysRoute: PathwaysRoute,
