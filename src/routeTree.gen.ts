@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActRouteImport } from './routes/act'
+import { Route as DirectionRouteImport } from './routes/direction'
+import { Route as EthicsRouteImport } from './routes/ethics'
+import { Route as GuideRouteImport } from './routes/guide'
+import { Route as MissionRouteImport } from './routes/mission'
+import { Route as OrganisationsRouteImport } from './routes/organisations'
+import { Route as PathwaysRouteImport } from './routes/pathways'
+import { Route as RealityRouteImport } from './routes/reality'
+import { Route as ReturnRouteImport } from './routes/return'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActRoute = ActRouteImport.update({
+  id: '/act',
+  path: '/act',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectionRoute = DirectionRouteImport.update({
+  id: '/direction',
+  path: '/direction',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EthicsRoute = EthicsRouteImport.update({
+  id: '/ethics',
+  path: '/ethics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuideRoute = GuideRouteImport.update({
+  id: '/guide',
+  path: '/guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MissionRoute = MissionRouteImport.update({
+  id: '/mission',
+  path: '/mission',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganisationsRoute = OrganisationsRouteImport.update({
+  id: '/organisations',
+  path: '/organisations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PathwaysRoute = PathwaysRouteImport.update({
+  id: '/pathways',
+  path: '/pathways',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RealityRoute = RealityRouteImport.update({
+  id: '/reality',
+  path: '/reality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReturnRoute = ReturnRouteImport.update({
+  id: '/return',
+  path: '/return',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/organisations': typeof OrganisationsRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/organisations': typeof OrganisationsRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
+  '/ethics': typeof EthicsRoute
+  '/guide': typeof GuideRoute
+  '/mission': typeof MissionRoute
+  '/organisations': typeof OrganisationsRoute
+  '/pathways': typeof PathwaysRoute
+  '/reality': typeof RealityRoute
+  '/return': typeof ReturnRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/act'
+    | '/direction'
+    | '/ethics'
+    | '/guide'
+    | '/mission'
+    | '/organisations'
+    | '/pathways'
+    | '/reality'
+    | '/return'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/act'
+    | '/direction'
+    | '/ethics'
+    | '/guide'
+    | '/mission'
+    | '/organisations'
+    | '/pathways'
+    | '/reality'
+    | '/return'
+  id:
+    | '__root__'
+    | '/'
+    | '/act'
+    | '/direction'
+    | '/ethics'
+    | '/guide'
+    | '/mission'
+    | '/organisations'
+    | '/pathways'
+    | '/reality'
+    | '/return'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActRoute: typeof ActRoute
+  DirectionRoute: typeof DirectionRoute
+  EthicsRoute: typeof EthicsRoute
+  GuideRoute: typeof GuideRoute
+  MissionRoute: typeof MissionRoute
+  OrganisationsRoute: typeof OrganisationsRoute
+  PathwaysRoute: typeof PathwaysRoute
+  RealityRoute: typeof RealityRoute
+  ReturnRoute: typeof ReturnRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/act': {
+      id: '/act'
+      path: '/act'
+      fullPath: '/act'
+      preLoaderRoute: typeof ActRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/direction': {
+      id: '/direction'
+      path: '/direction'
+      fullPath: '/direction'
+      preLoaderRoute: typeof DirectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ethics': {
+      id: '/ethics'
+      path: '/ethics'
+      fullPath: '/ethics'
+      preLoaderRoute: typeof EthicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guide': {
+      id: '/guide'
+      path: '/guide'
+      fullPath: '/guide'
+      preLoaderRoute: typeof GuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mission': {
+      id: '/mission'
+      path: '/mission'
+      fullPath: '/mission'
+      preLoaderRoute: typeof MissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organisations': {
+      id: '/organisations'
+      path: '/organisations'
+      fullPath: '/organisations'
+      preLoaderRoute: typeof OrganisationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pathways': {
+      id: '/pathways'
+      path: '/pathways'
+      fullPath: '/pathways'
+      preLoaderRoute: typeof PathwaysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reality': {
+      id: '/reality'
+      path: '/reality'
+      fullPath: '/reality'
+      preLoaderRoute: typeof RealityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/return': {
+      id: '/return'
+      path: '/return'
+      fullPath: '/return'
+      preLoaderRoute: typeof ReturnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActRoute: ActRoute,
+  DirectionRoute: DirectionRoute,
+  EthicsRoute: EthicsRoute,
+  GuideRoute: GuideRoute,
+  MissionRoute: MissionRoute,
+  OrganisationsRoute: OrganisationsRoute,
+  PathwaysRoute: PathwaysRoute,
+  RealityRoute: RealityRoute,
+  ReturnRoute: ReturnRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -4,6 +4,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-ink: hsl(var(--ink));
+  --color-panel: hsl(var(--panel));
+  --color-panel-2: hsl(var(--panel-2));
+  --color-line: hsl(var(--line));
+  --color-ivory: hsl(var(--ivory));
+  --color-muted-ink: hsl(var(--muted-ink));
+  --color-accent-blue: hsl(var(--accent-blue));
+  --color-signal: hsl(var(--signal));
+  --color-verified: hsl(var(--verified));
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
 /*
  * Design system definition.
  *
@@ -141,4 +155,122 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* ── AZIMUTH design system ─────────────────────────────────────────── */
+:root {
+  --ink: 217 48% 5%;
+  --panel: 217 42% 9%;
+  --panel-2: 217 34% 13%;
+  --line: 217 35% 21%;
+  --ivory: 42 30% 93%;
+  --muted-ink: 214 22% 64%;
+  --accent-blue: 220 100% 62%;
+  --signal: 33 68% 61%;
+  --verified: 156 44% 53%;
+
+  --radius: 0.25rem;
+  --background: hsl(var(--ink));
+  --foreground: hsl(var(--ivory));
+  --card: hsl(var(--panel-2));
+  --card-foreground: hsl(var(--ivory));
+  --popover: hsl(var(--panel));
+  --popover-foreground: hsl(var(--ivory));
+  --primary: hsl(var(--accent-blue));
+  --primary-foreground: hsl(var(--ivory));
+  --secondary: hsl(var(--panel-2));
+  --secondary-foreground: hsl(var(--ivory));
+  --muted: hsl(var(--panel-2));
+  --muted-foreground: hsl(var(--muted-ink));
+  --accent: hsl(var(--panel-2));
+  --accent-foreground: hsl(var(--ivory));
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: hsl(var(--ivory));
+  --border: hsl(var(--line));
+  --input: hsl(var(--line));
+  --ring: hsl(var(--accent-blue));
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+  body {
+    font-family: var(--font-sans);
+    background-color: hsl(var(--ink));
+    color: hsl(var(--ivory));
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+  ::selection {
+    background: hsl(var(--accent-blue) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--accent-blue));
+    outline-offset: 3px;
+  }
+}
+
+@utility az-hero {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+
+@utility az-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+@utility az-eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: hsl(var(--muted-ink));
+}
+
+@utility az-body {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+@keyframes az-drift {
+  0% { transform: translate3d(-3%, -2%, 0) scale(1.12); }
+  50% { transform: translate3d(3%, 2%, 0) scale(1.2); }
+  100% { transform: translate3d(-3%, -2%, 0) scale(1.12); }
+}
+
+@keyframes az-cue {
+  0%, 100% { opacity: 0.25; transform: translateY(0); }
+  50% { opacity: 0.9; transform: translateY(6px); }
+}
+
+.az-drift { animation: az-drift 52s ease-in-out infinite; }
+.az-cue { animation: az-cue 3.2s ease-in-out infinite; }
+
+.az-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.az-reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .az-drift, .az-cue { animation: none !important; }
+  .az-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
