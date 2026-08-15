@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActRouteImport } from './routes/act'
+import { Route as DirectionRouteImport } from './routes/direction'
 import { Route as GuideRouteImport } from './routes/guide'
 import { Route as MissionRouteImport } from './routes/mission'
 import { Route as PathwaysRouteImport } from './routes/pathways'
@@ -25,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const ActRoute = ActRouteImport.update({
   id: '/act',
   path: '/act',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DirectionRoute = DirectionRouteImport.update({
+  id: '/direction',
+  path: '/direction',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuideRoute = GuideRouteImport.update({
@@ -56,6 +62,7 @@ const ReturnRoute = ReturnRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/act': typeof ActRoute
+  '/direction': typeof DirectionRoute
   '/guide': typeof GuideRoute
   '/mission': typeof MissionRoute
   '/pathways': typeof PathwaysRoute
@@ -84,14 +93,29 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/act' | '/guide' | '/mission' | '/pathways' | '/reality' | '/return'
+    | '/'
+    | '/act'
+    | '/direction'
+    | '/guide'
+    | '/mission'
+    | '/pathways'
+    | '/reality'
+    | '/return'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/act' | '/guide' | '/mission' | '/pathways' | '/reality' | '/return'
+    | '/'
+    | '/act'
+    | '/direction'
+    | '/guide'
+    | '/mission'
+    | '/pathways'
+    | '/reality'
+    | '/return'
   id:
     | '__root__'
     | '/'
     | '/act'
+    | '/direction'
     | '/guide'
     | '/mission'
     | '/pathways'
@@ -102,6 +126,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActRoute: typeof ActRoute
+  DirectionRoute: typeof DirectionRoute
   GuideRoute: typeof GuideRoute
   MissionRoute: typeof MissionRoute
   PathwaysRoute: typeof PathwaysRoute
@@ -123,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/act'
       fullPath: '/act'
       preLoaderRoute: typeof ActRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/direction': {
+      id: '/direction'
+      path: '/direction'
+      fullPath: '/direction'
+      preLoaderRoute: typeof DirectionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guide': {
@@ -166,6 +198,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActRoute: ActRoute,
+  DirectionRoute: DirectionRoute,
   GuideRoute: GuideRoute,
   MissionRoute: MissionRoute,
   PathwaysRoute: PathwaysRoute,
