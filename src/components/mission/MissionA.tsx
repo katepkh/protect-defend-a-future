@@ -227,9 +227,8 @@ export function MissionA({
           </ul>
 
           <p className="mt-5 border-t border-line pt-4 text-[0.76rem] leading-relaxed text-muted-ink/80">
-            There are {TRUE_DAMAGE_COUNT} genuinely damaged structures in this frame and two that
-            are deliberately ambiguous. You are not told which, and you are not expected to reach
-            all of them.
+            Some structures are clearly damaged. Some are genuinely ambiguous. You are not expected
+            to reach everything in the time available.
           </p>
         </aside>
       </div>
