@@ -80,7 +80,7 @@ export function buildPlanText(input: {
   const { pathway: p, sentence } = input;
   const lines = [
     "TOPROTECT — your plan",
-    "There is more than one way to defend a future.",
+    "There is more than one way to defend democracy.",
     "",
     `Pathway: ${p.title}`,
     `Organisation: ${p.organisationName} (${p.verificationStatus})`,

@@ -85,12 +85,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "TOPROTECT" },
       {
         name: "description",
-        content: "There is more than one way to defend a future.",
+        content: "There is more than one way to defend democracy.",
       },
       { property: "og:title", content: "TOPROTECT" },
       {
         property: "og:description",
-        content: "There is more than one way to defend a future.",
+        content: "There is more than one way to defend democracy.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

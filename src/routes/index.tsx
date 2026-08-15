@@ -6,13 +6,13 @@ import { STEPS } from "@/lib/steps";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "TOPROTECT — There is more than one way to defend a future." },
+      { title: "TOPROTECT — There is more than one way to defend democracy." },
       {
         name: "description",
         content:
           "Try the work, understand what it really costs, and find the pathway that genuinely fits you. A gateway for international supporters of Ukraine.",
       },
-      { property: "og:title", content: "TOPROTECT — There is more than one way to defend a future." },
+      { property: "og:title", content: "TOPROTECT — There is more than one way to defend democracy." },
       {
         property: "og:description",
         content:
@@ -57,7 +57,7 @@ function Index() {
           </Reveal>
           <Reveal delay={120}>
             <h1 className="az-hero mt-7 max-w-[16ch] text-ivory">
-              There is more than one way to defend a future.
+              There is more than one way to defend democracy.
             </h1>
           </Reveal>
           <Reveal delay={240}>
