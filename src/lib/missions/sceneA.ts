@@ -103,10 +103,10 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
   const falsePositives = clean.filter((f) => truthOf(f.id) === "clean").map((f) => f.id);
 
   const ambiguousFlags = clean.filter((f) => truthOf(f.id) === "ambiguous");
-  const ambiguousHandled = ambiguousFlags.filter((f) => conf(f) === "uncertain").length;
-  const ambiguousOverconfident = ambiguousFlags.filter((f) => conf(f) === "certain").length;
+  const ambiguousHandled = ambiguousFlags.filter((f) => f.confidence === "uncertain").length;
+  const ambiguousOverconfident = ambiguousFlags.filter((f) => f.confidence === "certain").length;
   const confidentWrong = clean.filter(
-    (f) => conf(f) === "certain" && truthOf(f.id) !== "damaged",
+    (f) => f.confidence === "certain" && truthOf(f.id) !== "damaged",
   ).length;
 
   // Calibration measures the quality of the confidence levels the person
