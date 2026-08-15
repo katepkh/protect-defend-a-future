@@ -94,7 +94,6 @@ export function scoreMissionA(flags: Flag[], elapsed: number): MissionAResult {
   });
 
   const truthOf = (id: string) => byId.get(id)?.truth ?? "clean";
-  const conf = (f: Flag): Confidence => f.confidence ?? "uncertain";
 
   const detectedIds = clean.filter((f) => truthOf(f.id) === "damaged").map((f) => f.id);
   const missed = STRUCTURES.filter((s) => s.truth === "damaged" && !detectedIds.includes(s.id)).map(
