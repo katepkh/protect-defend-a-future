@@ -381,7 +381,11 @@ function ActPage() {
         </p>
 
         <div className="mt-8 flex flex-wrap gap-8">
-          <Link to="/reality" className="text-sm text-muted-ink hover:text-ivory">
+          <Link
+            to="/reality"
+            search={{ pathway: pathway.id }}
+            className="text-sm text-muted-ink hover:text-ivory"
+          >
             Back to what this really means
           </Link>
           <Link to="/return" className="text-sm text-accent-blue hover:underline">
