@@ -20,6 +20,8 @@ export type JourneyState = {
   capabilitySignals: string[];
   selectedPathway: string | null;
   acknowledgedReality: boolean;
+  /** ISO timestamp of the moment the reality gate was ticked. */
+  acknowledgedRealityAt: string | null;
   plan: { title: string; steps: string[] } | null;
   checkIn: { simulatedDaysLater: number } | null;
 };
@@ -33,6 +35,7 @@ export const EMPTY_JOURNEY: JourneyState = {
   capabilitySignals: [],
   selectedPathway: null,
   acknowledgedReality: false,
+  acknowledgedRealityAt: null,
   plan: null,
   checkIn: null,
 };
@@ -61,6 +64,7 @@ export const SAMPLE_JOURNEY: JourneyState = {
   capabilitySignals: ["embedded engineering", "structured analysis", "remote-ready", "EU mobility"],
   selectedPathway: "defence-technology-remote",
   acknowledgedReality: true,
+  acknowledgedRealityAt: null,
   plan: {
     title: "Remote defence-technology contribution",
     steps: [
@@ -73,6 +77,8 @@ export const SAMPLE_JOURNEY: JourneyState = {
 };
 
 const KEY = "protect.journey.v1";
+/** Pre-rename key. Read once, rewritten under the new key, then left alone. */
+const LEGACY_KEY = "azimuth.journey.v1";
 
 type Ctx = {
   journey: JourneyState;
@@ -91,7 +97,15 @@ export function JourneyProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(KEY);
+      let raw = localStorage.getItem(KEY);
+      if (!raw) {
+        const legacy = localStorage.getItem(LEGACY_KEY);
+        if (legacy) {
+          localStorage.setItem(KEY, legacy);
+          localStorage.removeItem(LEGACY_KEY);
+          raw = legacy;
+        }
+      }
       if (raw) setJourney({ ...EMPTY_JOURNEY, ...(JSON.parse(raw) as JourneyState) });
     } catch {
       /* ignore corrupt state */
