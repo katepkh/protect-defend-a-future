@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Graticule } from "@/components/atmosphere/Graticule";
 import { Reveal } from "@/components/journey/Reveal";
+import { DirectionHelper } from "@/components/journey/DirectionHelper";
+import type { DirectionSuggestion } from "@/lib/guide/directionHint";
 import { useJourney, type Direction } from "@/state/journey";
 
 export const Route = createFileRoute("/direction")({
@@ -95,6 +98,7 @@ const OPTIONS: {
 function DirectionPage() {
   const { journey, update } = useJourney();
   const navigate = useNavigate();
+  const [suggestions, setSuggestions] = useState<DirectionSuggestion[] | null>(null);
 
   const choose = (id: Exclude<Direction, null>) => {
     update({ direction: id });
@@ -120,6 +124,7 @@ function DirectionPage() {
           {OPTIONS.map((opt, i) => {
             const Icon = opt.icon;
             const selected = journey.direction === opt.id;
+            const suggested = suggestions?.find((s) => s.direction === opt.id) ?? null;
             return (
               <Reveal key={opt.id} delay={i * 90}>
                 <button
@@ -127,9 +132,14 @@ function DirectionPage() {
                   onClick={() => choose(opt.id)}
                   aria-pressed={selected}
                   className={`group h-full w-full border bg-panel p-8 text-left transition-all duration-300 hover:-translate-y-0.5 hover:bg-panel-2 md:p-10 ${
-                    selected ? "border-accent-blue" : "border-line hover:border-accent-blue"
+                    selected || suggested ? "border-accent-blue" : "border-line hover:border-accent-blue"
                   }`}
                 >
+                  {suggested ? (
+                    <span className="mb-6 inline-block border border-accent-blue px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-accent-blue">
+                      Suggested for you
+                    </span>
+                  ) : null}
                   <span className="block text-muted-ink transition-colors duration-300 group-hover:text-accent-blue">
                     <Icon />
                   </span>
@@ -138,6 +148,11 @@ function DirectionPage() {
                   </h2>
                   <p className="mt-2 text-[1.0625rem] leading-relaxed text-ivory/85">{opt.desc}</p>
                   <p className="mt-6 max-w-[46ch] text-sm leading-relaxed text-muted-ink">{opt.note}</p>
+                  {suggested ? (
+                    <p className="mt-5 max-w-[46ch] border-l border-accent-blue pl-4 text-sm leading-relaxed text-ivory/90">
+                      {suggested.reason}
+                    </p>
+                  ) : null}
                   <span className="mt-8 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-muted-ink transition-colors duration-300 group-hover:text-accent-blue">
                     Start here <span aria-hidden>→</span>
                   </span>
@@ -146,6 +161,10 @@ function DirectionPage() {
             );
           })}
         </div>
+
+        <Reveal delay={100}>
+          <DirectionHelper suggestions={suggestions} onSuggest={setSuggestions} />
+        </Reveal>
 
         <Reveal delay={120}>
           <section className="mt-6 border border-line bg-panel p-8 transition-colors duration-300 hover:border-accent-blue md:p-10">
